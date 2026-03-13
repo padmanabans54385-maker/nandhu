@@ -1,0 +1,413 @@
+:root {
+    --bg-color: #0f0c1b;
+    --text-main: #fcfcfc;
+    --text-muted: #b8b3d6;
+    --accent-red: #ff3366;
+    --accent-glow: rgba(255, 51, 102, 0.4);
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.1);
+
+    --font-heading: 'Dancing Script', cursive;
+    --font-body: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Background Particles */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-red);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-red), 0 0 20px var(--accent-red);
+    animation: float 15s infinite linear;
+    opacity: 0;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.8;
+    }
+
+    80% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-100px) translateX(50px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    background: radial-gradient(circle at center, rgba(30, 20, 50, 0.8) 0%, var(--bg-color) 70%);
+}
+
+.hero-content {
+    text-align: center;
+    padding: 0 20px;
+    animation: fadeIn 2s ease-out;
+}
+
+.pre-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-family: var(--font-heading);
+    color: var(--accent-red);
+    margin-bottom: -10px;
+    opacity: 0.9;
+}
+
+.main-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #fff, #ffb3c6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+}
+
+.subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 60px;
+}
+
+.scroll-down {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+    animation: bounce 2s infinite;
+}
+
+.scroll-down:hover {
+    color: var(--text-main);
+}
+
+.scroll-down svg {
+    width: 24px;
+    height: 24px;
+    margin-top: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Section Title */
+.section-title {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--accent-red);
+    margin-bottom: 50px;
+    text-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Gallery Section - Card Stack */
+.gallery-section {
+    padding: 100px 5%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.swipe-hint {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    animation: bounce 2s infinite;
+    text-align: center;
+    display: none;
+    /* Shown by JS when images load */
+}
+
+.card-stack {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 3/4;
+    margin: 0 auto;
+    perspective: 1000px;
+}
+
+.swipe-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--card-border);
+    background-color: var(--bg-color);
+    transform-origin: 50% 100%;
+    cursor: grab;
+    will-change: transform;
+    /* Transition set by JS during swipe, CSS fallback for resets */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, opacity 0.4s ease;
+}
+
+.swipe-card:active {
+    cursor: grabbing;
+}
+
+.swipe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 50px 20px 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    text-align: center;
+    pointer-events: none;
+}
+
+/* Message Section */
+.message-section {
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    perspective: 1000px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-container {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1.4;
+    cursor: pointer;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: rgba(20, 15, 35, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.card-front::before,
+.card-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 50%),
+        radial-gradient(circle at bottom right, rgba(255, 51, 102, 0.1), transparent 50%);
+    pointer-events: none;
+}
+
+.card-front {
+    text-align: center;
+}
+
+.card-content h3 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--accent-red);
+    margin-bottom: 30px;
+}
+
+.envelope-icon svg {
+    width: 80px;
+    height: 80px;
+    stroke: var(--text-main);
+    margin-bottom: 30px;
+    transition: stroke 0.3s;
+}
+
+.card-container:hover .envelope-icon svg {
+    stroke: var(--accent-red);
+}
+
+.card-content p {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: rgba(25, 20, 45, 0.8);
+    align-items: flex-start;
+}
+
+.card-inner-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-inner-content h3 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--accent-red);
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 51, 102, 0.3);
+    padding-bottom: 15px;
+}
+
+.message-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #e2e0ed;
+    flex-grow: 1;
+}
+
+.signature {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--accent-red);
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--card-border);
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .gallery-section {
+        padding: 60px 20px;
+    }
+
+    .message-section {
+        padding: 60px 20px;
+    }
+
+    .card-face {
+        padding: 30px;
+    }
+
+    .message-text {
+        font-size: 1.1rem;
+    }
+}

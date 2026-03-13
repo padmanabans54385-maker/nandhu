@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love</title>
+    <meta name="description" content="A special birthday surprise for my favorite person.">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h2 class="pre-title">To my wonderful lover,</h2>
+            <h1 class="main-title">Happy Birthday</h1>
+            <p class="subtitle">Every moment with you is a treasure.</p>
+            <a href="#gallery" class="scroll-down">
+                <span>Our Memories</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <section id="gallery" class="gallery-section">
+        <h2 class="section-title">Beautiful Moments</h2>
+        <p class="swipe-hint">Swipe cards to see more</p>
+        <div class="card-stack" id="card-stack">
+            <!-- Swipe cards will be dynamically injected by script.js -->
+        </div>
+    </section>
+
+    <section id="message" class="message-section">
+        <div class="card-container">
+            <div class="card" id="birthday-card">
+                <!-- Front of the card -->
+                <div class="card-face card-front">
+                    <div class="card-content">
+                        <h3>A Special Note</h3>
+                        <div class="envelope-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <p>Tap to open</p>
+                    </div>
+                </div>
+                <!-- Back of the card (Inside) -->
+                <div class="card-face card-back">
+                    <div class="card-inner-content">
+                        <h3 id="message-heading">My Dearest,</h3>
+                        <p class="message-text" id="message-body">
+                            Loading message...
+                        </p>
+                        <p class="signature" id="message-signature">- With all my love</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Made with ❤️ just for you</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
